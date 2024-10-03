@@ -1,7 +1,10 @@
-import { Elysia } from "elysia";
+import { Elysia } from 'elysia';
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+import { getCirculatingSupply } from './apis/supply';
 
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
+const app = new Elysia()
+	.get('/', '🦄')
+	.all('/v1/network/supply', getCirculatingSupply)
+	.listen(3000);
+
+console.log('Listening on port 3000');
