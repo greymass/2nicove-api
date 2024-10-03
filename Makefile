@@ -17,7 +17,7 @@ test: build node_modules build/drops.ts build/epoch.drops.ts init/codegen
 codegen: codegen/dir build/eosio.token.ts
 
 build/eosio.token.ts: 
-	npx @wharfkit/cli generate --url https://eos.greymass.com --file ./src/contracts/eosio.token.ts eosio.token
+	bunx @wharfkit/cli generate --url https://eos.greymass.com --file ./src/contracts/eosio.token.ts eosio.token
 
 codegen/dir:
 	mkdir -p codegen
