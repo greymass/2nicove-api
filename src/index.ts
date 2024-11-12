@@ -3,6 +3,8 @@ import { Elysia } from 'elysia';
 import { getCirculatingSupply } from './apis/supply';
 import { getMarketPrice, MarketpriceType } from './apis/marketprice';
 
+const port = Bun.env.UNICOVE_HTTP_PORT || 3000;
+
 const app = new Elysia()
 	.get('/', '🦄')
 	.all('/v1/network/supply', getCirculatingSupply)
@@ -20,6 +22,6 @@ const app = new Elysia()
 		}
 		return getMarketPrice(type as MarketpriceType, bucket, range);
 	})
-	.listen(3000);
+	.listen(port);
 
-console.log('Listening on port 3000');
+console.log(`Listening on port ${port}`);
