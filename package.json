@@ -2,9 +2,12 @@
 	"name": "2nicove-api",
 	"version": "1.0.50",
 	"dependencies": {
+		"@influxdata/influxdb-client": "^1.35.0",
+		"@influxdata/influxdb-client-apis": "^1.35.0",
 		"@wharfkit/antelope": "^1.0.12",
 		"@wharfkit/contract": "^1.1.5",
-		"elysia": "latest"
+		"elysia": "latest",
+		"winston": "^3.17.0"
 	},
 	"devDependencies": {
 		"bun-types": "latest"
