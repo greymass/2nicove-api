@@ -10,7 +10,7 @@ const app = new Elysia()
 	.all('/v1/network/supply', getCirculatingSupply)
 	.get('/v1/marketprice/:type/:bucket/:range', ({ params }) => {
 		let { type, bucket, range } = params;
-		const types = ['cpu', 'net', 'ram'];
+		const types = ['cpu', 'net', 'ram', 'eosusd', 'btcusd', 'eosbtc', 'btccny'];
 		if (params.type && !types.includes(params.type)) {
 			throw new Error('Invalid type');
 		}
