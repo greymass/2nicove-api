@@ -12,7 +12,7 @@ export interface Marketprice {
 }
 
 export type MarketpriceType = 'cpu' | 'net' | 'ram' | 'btccny' | 'btcusd' | 'eosbtc' | 'eosusd';
-export type MarkethistoryType = '1d' | '1w' | '1m' | '3m' | '1y';
+export type MarkethistoryType = '1d' | '1w' | '1mo' | '3mo' | '1y';
 
 export async function getMarketPrice(measurement: MarketpriceType, bucket = '1h', range = '30d') {
 	const marketprice = influxdb.getQueryApi(INFLUX_ORG);
@@ -36,9 +36,21 @@ export async function getHistoricPrice(
 ) {
 	const marketprice = influxdb.getQueryApi(INFLUX_ORG);
 
+	let bucket = '15m';
+	switch (timeframe) {
+		case '1y': {
+			bucket = '1d';
+			break;
+		}
+		default: {
+			// Use default bucket for 1d, 1w, 1mo, 3mo
+			break;
+		}
+	}
+
 	// Use the 1d bucket since it has records for each day
 	const query = `
-        from(bucket: "marketprice-1d")
+        from(bucket: "marketprice-${bucket}")
         |> range(start: -${timeframe})
         |> filter(fn: (r) => r._measurement == "${measurement}")
         |> first()
