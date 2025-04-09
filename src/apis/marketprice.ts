@@ -36,15 +36,13 @@ export async function getHistoricPrice(
 ) {
 	const marketprice = influxdb.getQueryApi(INFLUX_ORG);
 
+	// Use the 1d bucket since it has records for each day
 	const query = `
-        from(bucket: "marketprice-${timeframe}")
+        from(bucket: "marketprice-1d")
         |> range(start: -${timeframe})
         |> filter(fn: (r) => r._measurement == "${measurement}")
         |> first()
     `;
 
-	console.log(query);
-
-	const result = await marketprice.collectRows<Marketprice>(query);
-	return result;
+	return await marketprice.collectRows<Marketprice>(query);
 }
